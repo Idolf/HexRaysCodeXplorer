@@ -209,7 +209,7 @@ tid_t idaapi merge_types(qvector<qstring> types_to_merge, qstring type_name) {
 								member_t * member_info = get_member(struc_type, offset);
 								if (member_info != NULL) {
 									if (offsets.count(member_info->soff) == 0) {
-										qstring member_name = get_member_name2(member_info->id);
+										qstring member_name = f_get_member_name2(member_info->id);
 										asize_t member_size = get_member_size(member_info);
 
 										if (member_name.find("vftbl_", 0) != -1) {
@@ -247,7 +247,7 @@ void get_struct_key(struc_t * struc_type, VTBL_info_t vtbl_info, qstring &file_e
 	for ( ea_t offset = get_struc_first_offset(struc_type) ; offset != BADADDR ; offset = get_struc_next_offset(struc_type, offset)) {
 		member_t * member_info = get_member(struc_type, offset);
 		if (member_info != NULL) {
-			qstring member_name = get_member_name2(member_info->id);
+			qstring member_name = f_get_member_name2(member_info->id);
 			asize_t member_size = get_member_size(member_info);
 
 			if (member_name.find("vftbl_", 0) != -1) {
@@ -327,7 +327,7 @@ bool idaapi check_subtype(VTBL_info_t vtbl_info, qstring subtype_name) {
 			for ( ea_t offset = get_struc_first_offset(struc_type) ; offset != BADADDR ; offset = get_struc_next_offset(struc_type, offset)) {
 				member_t * member_info = get_member(struc_type, offset);
 				if (member_info != NULL) {
-					qstring member_name = get_member_name2(member_info->id);
+					qstring member_name = f_get_member_name2(member_info->id);
 					if (member_name.find(search_str, 0) != -1) {
 						bResult = true;
 						break;
@@ -371,7 +371,7 @@ bool idaapi extract_all_types(void *ud)
 			qvector <qstring> types_to_merge;
 			for (ea_t addr = get_first_dref_to(cur_vt_ea); addr != BADADDR; addr = get_next_dref_to(cur_vt_ea, addr)) {
 				qstring name;
-				get_func_name2(&name, addr);
+				f_get_func_name2(&name, addr);
 
 				
 

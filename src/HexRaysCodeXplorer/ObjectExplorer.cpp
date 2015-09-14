@@ -98,7 +98,7 @@ static bool get_vtbl_info(ea_t ea_address, VTBL_info_t &vtbl_info)
 		if(is_move_xref) {
 			ZeroMemory(&vtbl_info, sizeof(VTBL_info_t));
 			
-			get_ea_name(&vtbl_info.vtbl_name, ea_address);
+			f_get_ea_name(&vtbl_info.vtbl_name, ea_address);
 			
 			ea_t ea_start = vtbl_info.ea_begin = ea_address;
 			
@@ -155,7 +155,7 @@ static void process_vtbl(ea_t &ea_sect)
 		if(vftable_info_t.methods > 1) {
 			// check if we have already processed this table
 			if (rtti_vftables.count(vftable_info_t.ea_begin) == 0) {
-				vftable_info_t.vtbl_name = get_short_name(vftable_info_t.ea_begin);
+				vftable_info_t.vtbl_name = f_get_short_name(vftable_info_t.ea_begin);
 
 				qstring vtbl_info_str;
 #ifndef  __EA64__
@@ -233,7 +233,7 @@ tid_t create_vtbl_struct(ea_t vtbl_addr, ea_t vtbl_addr_end, char* vtbl_name, uv
 		flags_t method_flags = getFlags(method_ea);
 		char* struc_member_name = NULL;
 		if (isFunc(method_flags)) {
-			method_name = get_short_name(method_ea);
+			method_name = f_get_short_name(method_ea);
 			if (method_name.length() != 0)
 				struc_member_name = (char*)method_name.c_str();
 		}
@@ -244,7 +244,7 @@ tid_t create_vtbl_struct(ea_t vtbl_addr, ea_t vtbl_addr_end, char* vtbl_name, uv
 #endif
 		if (struc_member_name) {
 			if (!set_member_name(new_struc, offset, struc_member_name)) {
-				get_ea_name(&method_name, method_ea);
+				f_get_ea_name(&method_name, method_ea);
 				set_member_name(new_struc, offset, struc_member_name);
 			}
 		}
@@ -412,7 +412,7 @@ static void get_xrefs_to_vtbl()
 	for (ea_t addr = get_first_dref_to(cur_vt_ea); addr != BADADDR; addr = get_next_dref_to(cur_vt_ea, addr))
 	{
 		qstring name;
-		get_func_name2(&name, addr);
+		f_get_func_name2(&name, addr);
 
 		xref_addr.push_back(addr);
 
@@ -455,7 +455,7 @@ static bool idaapi show_vtbl_xrefs_window_cb(void *ud)
 		simpleline_place_t s2(si->sv.size() - 1);
 		si->cv = create_custom_viewer("", NULL, &s1, &s2, &s1, 0, &si->sv);
 		si->codeview = create_code_viewer(form, si->cv, CDVF_STATUSBAR);
-		set_custom_viewer_handlers(si->cv, NULL, NULL, NULL, ct_vtbl_xrefs_window_click, NULL, NULL, si);
+		f_set_custom_viewer_handlers(si->cv, NULL, NULL, NULL, ct_vtbl_xrefs_window_click, NULL, NULL, si);
 		open_tform(form, FORM_ONTOP | FORM_RESTORE);
 
 		return true;
@@ -614,7 +614,7 @@ void object_explorer_form_init()
 		simpleline_place_t s2(si->sv.size() - 1);
 		si->cv = create_custom_viewer("", NULL, &s1, &s2, &s1, 0, &si->sv);
 		si->codeview = create_code_viewer(form, si->cv, CDVF_STATUSBAR);
-		set_custom_viewer_handlers(si->cv, ct_object_explorer_keyboard, ct_object_explorer_popup, NULL, ct_object_explorer_click, NULL, NULL, si);
+		f_set_custom_viewer_handlers(si->cv, ct_object_explorer_keyboard, ct_object_explorer_popup, NULL, ct_object_explorer_click, NULL, NULL, si);
 		hook_to_notification_point(HT_UI, ui_object_explorer_callback, si);
 		open_tform(form, FORM_TAB | FORM_MENU | FORM_RESTORE);
 	}
