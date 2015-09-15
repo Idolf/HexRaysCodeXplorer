@@ -1,7 +1,7 @@
 /// This file fix some missing function in 1.6 version support for ida 6.6 sdk
 
-#ifndef _FIX_HPP
-#define _FIX_HPP
+#ifndef _FIX_H
+#define _FIX_H
 #include <ida.hpp>
 #include <idp.hpp>
 #include <bytes.hpp>
@@ -45,9 +45,9 @@ inline qstring f_get_struc_name(tid_t struct_tyle_id) {
 	return qstring(buff);
 }
 
-inline qstring f_get_member_name2(tid_t struct_tyle_id) {
+inline qstring f_get_member_name2(tid_t mid) {
 	char buff[MAXSTR];
-	get_member_name(struct_tyle_id, buff, (MAXSTR - 1));
+	get_member_name(mid, buff, (MAXSTR - 1));
 	return qstring(buff);
 }
 
