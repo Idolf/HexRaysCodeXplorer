@@ -73,5 +73,6 @@
 #include <iostream>
 #include <sstream>
 
+#include "Fix.h"
 #endif
 

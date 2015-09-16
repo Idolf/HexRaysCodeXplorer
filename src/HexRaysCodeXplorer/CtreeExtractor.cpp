@@ -280,7 +280,7 @@ inline bool func_name_has_prefix(qstring &prefix, ea_t startEA) {
 	if (prefix.length() <= 0)
 		return false;
 	
-	if (get_func_name2(&func_name, startEA) == 0)
+	if (f_get_func_name2(&func_name, startEA) == 0)
 		return false;
 	
 	if (func_name.length() <= 0)
@@ -345,7 +345,7 @@ bool idaapi dump_funcs_ctree(void *ud, qstring &crypto_prefix)
 					func_dump.func_end = function->endEA;
 
 					qstring func_name;
-					if (get_func_name2(&func_name, function->startEA) != 0) {
+					if (f_get_func_name2(&func_name, function->startEA) != 0) {
 						if (func_name.length() > 0) {
 							func_dump.func_name = func_name;
 						}
@@ -430,7 +430,7 @@ bool idaapi show_citem_custom_view(void *ud, qstring ctree_item, qstring item_na
 	simpleline_place_t s2(ctree_item.size());
 	si->cv = create_custom_viewer("Ctree Item View: ", NULL, &s1, &s2, &s1, 0, &si->sv);
 	si->codeview = create_code_viewer(form, si->cv, CDVF_NOLINES);
-	set_custom_viewer_handlers(si->cv, NULL, NULL, NULL, NULL, NULL, NULL, si);
+	f_set_custom_viewer_handlers(si->cv, NULL, NULL, NULL, NULL, NULL, NULL, si);
 	open_tform(form, FORM_ONTOP | FORM_RESTORE);
 
 	return false;
