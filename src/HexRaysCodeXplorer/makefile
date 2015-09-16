@@ -4,7 +4,7 @@ LD=ld
 #CFLAGS=-D__LINUX__ -DUSE_DANGEROUS_FUNCTIONS -D__PLUGIN__ -D__X64__
 #CFLAGS=-m32 -fPIC -D__LINUX__ -DUSE_DANGEROUS_FUNCTIONS -D__PLUGIN__ -D__EA64__
 
-CFLAGS=-m32 -fPIC -D__LINUX__ -DUSE_DANGEROUS_FUNCTIONS -D__PLUGIN__ 
+CFLAGS=-m32 -fPIC -D__LINUX__ -DUSE_DANGEROUS_FUNCTIONS -D__PLUGIN__  -std=c++11
 LDFLAGS=-shared -m32
 
 # TODO: add conditional compilation over -lida or -lida64 based on the X64

@@ -15,7 +15,6 @@
 
 #include <string.h>
 #include <stdarg.h>
-#include <tchar.h>
 
 
 inline void f_get_ea_name(qstring* name, ea_t addr) {
